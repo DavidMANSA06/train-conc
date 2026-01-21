@@ -13,7 +13,7 @@ public class Main {
 		Railway r = new Railway(new Element[] { A, AB, BC, CD, D });
 		System.out.println("The railway is:");
 		System.out.println("\t" + r);
-		Position p = new Position(A, Direction.LR, r);
+		Position p = new Position(A, Direction.LR);
 		try {
 			Train t1 = new Train("1", p);
 			new Thread(t1).start();

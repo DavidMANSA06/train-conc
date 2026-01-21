@@ -42,9 +42,43 @@ public class Train implements Runnable {
 		result.append(this.pos);
 		return result.toString();
 	}
+	
+	public void move() {
+        Element current = pos.getPos();
+        Element next = pos.getNextElement();
+
+        if (next == null) {
+            pos.reverse();
+            System.out.println(this.name + " reversed direction at " + current);
+        } else {
+            current.leave(this);
+            
+            // Move to next element
+            pos.moveToNext();
+            
+            // Enter next element
+            next.enter(this);
+            
+            System.out.println(this.name + " moved to " + next);
+        }
+    }
 
 	@Override
 	public void run() {
-		
+		System.out.println("Train " + this.name + " starting at " + pos.getPos());
+        
+        while (true) {
+            try {
+                // Move the train
+                move();
+                
+                // Sleep for a bit to simulate travel time
+                Thread.sleep(1000); // 1 second between moves
+                
+            } catch (InterruptedException e) {
+                System.out.println("Train " + this.name + " interrupted");
+                Thread.currentThread().interrupt();
+            }
+        }
 	}
 }
