@@ -20,10 +20,12 @@ public class Section extends Element {
 	
 	@Override
     public synchronized void enter(Train t) throws InterruptedException {
-       
         Direction d = t.getPosition().getDirection();
-        
-        this.railway.acquireLine(d);
+        Element currentPos = t.getPosition().getPos();
+
+        if (currentPos instanceof Station) {
+            this.railway.acquireLine(d);
+        }
         
         super.enter(t);
     }
@@ -31,9 +33,13 @@ public class Section extends Element {
     @Override
     public synchronized void leave(Train t) {
         Direction d = t.getPosition().getDirection();
-        
+        Element nextElement = t.getPosition().getNextElement();
+
         super.leave(t);
-        
-        this.railway.releaseLine(d);
+
+       
+        if (nextElement instanceof Station) {
+            this.railway.releaseLine(d);
+        }
     }
 }
