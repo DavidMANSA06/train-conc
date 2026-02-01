@@ -47,15 +47,15 @@ public abstract class Element {
         return null; 
     }
 	
-	public void enter(Train t) {
+	/*public void enter(Train t) {
         this.currentTrain = t;
-    }
+    }*/
 
-    public void leave(Train t) {
+    /*public void leave(Train t) {
         if (this.currentTrain == t) {
             this.currentTrain = null;
         }
-    }
+    }*/
 
     public boolean hasTrain() {
         return this.currentTrain != null;

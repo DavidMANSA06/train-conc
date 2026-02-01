@@ -10,7 +10,6 @@ package train;
  */
 public class Railway {
 	public final Element[] elements;
-	private Position pos;
 	
 
 	public Railway(Element[] elements) {
@@ -45,16 +44,12 @@ public class Railway {
 
 	@Override
 	public String toString() {
-		StringBuilder result = new StringBuilder();
-		boolean first = true;
-		for (Element e : this.elements) {
-			if (first)
-				first = false;
-			else
-				result.append("--");
-			result.append(e);
-		}
-		return result.toString();
+		StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < elements.length; i++) {
+            if (i > 0) sb.append("--");
+            sb.append(elements[i]);
+        }
+        return sb.toString();
 	}
 	
 }

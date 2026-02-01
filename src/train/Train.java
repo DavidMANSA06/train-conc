@@ -17,7 +17,7 @@ package train;
  * @author Philippe Tanguy <philippe.tanguy@imt-atlantique.fr>
  * @version 0.3
  */
-public class Train implements Runnable {
+public class Train {
 	private final String name;
 	private final Position pos;
 
@@ -35,50 +35,21 @@ public class Train implements Runnable {
 
 	@Override
 	public String toString() {
-		StringBuilder result = new StringBuilder("Train[");
-		result.append(this.name);
-		result.append("]");
-		result.append(" is on ");
-		result.append(this.pos);
-		return result.toString();
+		return "Train[" + name + "] is on " + pos;
 	}
 	
 	public void move() {
-        Element current = pos.getPos();
         Element next = pos.getNextElement();
 
         if (next == null) {
             pos.reverse();
-            System.out.println(this.name + " reversed direction at " + current);
+            System.out.println("Train" + this.name + " reversed direction");
         } else {
-            current.leave(this);
             
             // Move to next element
             pos.moveToNext();
             
-            // Enter next element
-            next.enter(this);
-            
-            System.out.println(this.name + " moved to " + next);
+            System.out.println(this);
         }
     }
-
-	@Override
-	public void run() {
-		System.out.println("Train " + this.name + " starting at " + pos.getPos());
-        
-        while (true) {
-            try {
-                // Move the train
-                move();
-                
-                // Sleep for a bit to simulate travel time
-                Thread.sleep(1000); // 1 second between moves
-                
-            } catch (InterruptedException e) {
-                System.out.println("Train " + this.name + " interrupted");
-                Thread.currentThread().interrupt();
-            }
-        }
-	}
 }

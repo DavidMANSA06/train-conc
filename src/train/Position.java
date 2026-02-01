@@ -70,32 +70,6 @@ public class Position implements Cloneable {
     }
 	
 	
-	/* public void SetPos (Element element, Direction dir) {
-		this.direction = dir;
-		this.pos = element;
-	}
-	
-	public void aller () {
-		for (Element e : r.elements ) {
-			SetPos(e, direction);
-			System.out.println(e);
-		}
-	}
-	
-	public void retour () {
-		int length = r.elements.length;
-		int i = 0;
-		System.out.println("1");
-
-		for (i = length; i <= 0; i--) {
-			System.out.println("2");
-
-			SetPos(r.elements[i], Direction.RL);
-			System.out.println("3");
-		} 
-		
-	}*/
-	
 	
 
 	@Override
