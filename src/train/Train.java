@@ -62,6 +62,10 @@ public class Train implements Runnable {
             System.out.println(this.name + " moved to " + next);
         }
     }
+	
+	public Position getPosition() {
+	    return this.pos;
+	}
 
 	@Override
 	public void run() {

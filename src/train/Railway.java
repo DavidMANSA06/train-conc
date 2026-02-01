@@ -12,6 +12,9 @@ public class Railway {
 	public final Element[] elements;
 	private Position pos;
 	
+	private int nbLR = 0;
+	private int nbRL = 0;
+	
 
 	public Railway(Element[] elements) {
 		if(elements == null)
@@ -21,6 +24,23 @@ public class Railway {
 		for (Element e : elements)
 			e.setRailway(this);
 	}
+	
+	public synchronized void acquireLine(Direction dir) throws InterruptedException {
+	    if (dir == Direction.LR) {
+	        while (nbRL > 0) wait();
+	        nbLR++;
+	    } else {
+	        while (nbLR > 0) wait();
+	        nbRL++;
+	    }
+	}
+
+	public synchronized void releaseLine(Direction dir) {
+	    if (dir == Direction.LR) nbLR--;
+	    else nbRL--;
+	    notifyAll();
+	}
+	
 	
     public Element getElement(int index) {
         if (index >= 0 && index < elements.length) {

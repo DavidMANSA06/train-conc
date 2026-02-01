@@ -17,4 +17,23 @@ public class Section extends Element {
 		
 		return currentOccupancy < 1; // Max 1 train
 	}
+	
+	@Override
+    public synchronized void enter(Train t) throws InterruptedException {
+       
+        Direction d = t.getPosition().getDirection();
+        
+        this.railway.acquireLine(d);
+        
+        super.enter(t);
+    }
+
+    @Override
+    public synchronized void leave(Train t) {
+        Direction d = t.getPosition().getDirection();
+        
+        super.leave(t);
+        
+        this.railway.releaseLine(d);
+    }
 }
