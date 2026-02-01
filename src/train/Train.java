@@ -43,7 +43,7 @@ public class Train implements Runnable {
 		return result.toString();
 	}
 	
-	public void move() {
+	public void move() throws InterruptedException {
         Element current = pos.getPos();
         Element next = pos.getNextElement();
 

@@ -17,6 +17,7 @@ public abstract class Element {
 	private final String name;
 	protected Railway railway;
 	private Train currentTrain;
+	protected int currentOccupancy = 0;
 
 	protected Element(String name) {
 		if(name == null)
@@ -25,7 +26,11 @@ public abstract class Element {
 		this.name = name;
 		this.currentTrain = null;
 	}
-
+	
+	
+	//Waiting condition method
+	protected abstract boolean canEnter();
+	
 	public void setRailway(Railway r) {
 		if(r == null)
 			throw new NullPointerException();
@@ -47,14 +52,16 @@ public abstract class Element {
         return null; 
     }
 	
-	public void enter(Train t) {
-        this.currentTrain = t;
+	public synchronized void enter(Train t)throws InterruptedException {
+		while (!canEnter()) {
+            wait();
+        }
+		currentOccupancy++;
     }
 
-    public void leave(Train t) {
-        if (this.currentTrain == t) {
-            this.currentTrain = null;
-        }
+    public synchronized void leave(Train t) {
+    	currentOccupancy--;
+          notifyAll();
     }
 
     public boolean hasTrain() {

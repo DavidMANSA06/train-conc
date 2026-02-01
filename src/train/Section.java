@@ -11,4 +11,10 @@ public class Section extends Element {
 	public Section(String name) {
 		super(name);
 	}
+
+	@Override
+	protected boolean canEnter() {
+		
+		return currentOccupancy < 1; // Max 1 train
+	}
 }

@@ -17,4 +17,9 @@ public class Station extends Element {
 			throw new NullPointerException();
 		this.size = size;
 	}
+
+	@Override
+	protected boolean canEnter() {
+		return currentOccupancy < size; // Max 'size' trains
+	}
 }
