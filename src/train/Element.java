@@ -17,7 +17,7 @@ public abstract class Element {
 	private final String name;
 	protected Railway railway;
 	private Train currentTrain;
-	protected int currentOccupancy = 0;
+	protected int nbTrains = 0;
 
 	protected Element(String name) {
 		if(name == null)
@@ -56,11 +56,11 @@ public abstract class Element {
 		while (!canEnter()) {
             wait();
         }
-		currentOccupancy++;
+		nbTrains++;
     }
 
     public synchronized void leave(Train t) {
-    	currentOccupancy--;
+    	nbTrains--;
           notifyAll();
     }
 

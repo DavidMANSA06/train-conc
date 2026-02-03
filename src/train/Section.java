@@ -15,6 +15,6 @@ public class Section extends Element {
 	@Override
 	protected boolean canEnter() {
 		
-		return currentOccupancy < 1; // Max 1 train
+		return nbTrains < 1; // Max 1 train
 	}
 }
