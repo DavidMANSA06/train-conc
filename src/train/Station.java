@@ -9,17 +9,47 @@ package train;
  * @author Philippe Tanguy <philippe.tanguy@imt-atlantique.fr>
  */
 public class Station extends Element {
-	private final int size;
+    private final int size;
+    private final boolean isTerminal; // NEW: Distinguer gare terminale vs intermédiaire
 
-	public Station(String name, int size) {
-		super(name);
-		if(name == null || size <=0)
-			throw new NullPointerException();
-		this.size = size;
-	}
+    // Constructeur pour gares terminales (comportement par défaut)
+    public Station(String name, int size) {
+        this(name, size, true);
+    }
 
-	@Override
-	protected boolean canEnter() {
-		return nbTrains < size; // Max 'size' trains
-	}
+    // NEW: Constructeur avec type de gare
+    public Station(String name, int size, boolean isTerminal) {
+        super(name);
+        if(name == null || size <= 0)
+            throw new NullPointerException();
+        this.size = size;
+        this.isTerminal = isTerminal;
+    }
+
+    @Override
+    protected boolean canEnter() {
+        if (isTerminal) {
+            // Gare terminale : peut accueillir tous les trains jusqu'à 'size'
+            return nbTrains < size;
+        } else {
+            // Gare intermédiaire : RÉSERVE 1 PLACE pour éviter le deadlock
+            // Cette place permet aux trains en sens inverse de passer
+            return nbTrains < (size - 1);
+        }
+    }
+
+    public boolean isTerminal() {
+        return isTerminal;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    @Override
+    public String toString() {
+        String type = isTerminal ? "Terminal" : "Intermediate";
+        return super.toString() + "[" + type + ",size=" + size + "]";
+    }
 }
+

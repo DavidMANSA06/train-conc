@@ -8,7 +8,6 @@ package train;
  * @author Philippe Tanguy <philippe.tanguy@imt-atlantique.fr>
  */
 
-
 public class Section extends Element {
     public Section(String name) {
         super(name);
@@ -22,16 +21,13 @@ public class Section extends Element {
     @Override
     public void enter(Train t) throws InterruptedException {
         Direction d = t.getPosition().getDirection();
-        
-        // Trouver l'élément précédent (d'où vient le train)
-        Element previousElement = this.getNext(d == Direction.LR ? Direction.RL : Direction.LR);
-        
-        // Si on vient d'une Station, on réserve TOUTE la ligne pour cette direction
-        if (previousElement instanceof Station) {
+        Element previousElement = getPreviousElement(d);
+
+        // Réserver la ligne si on sort d'une gare TERMINALE
+        if (previousElement instanceof Station && ((Station) previousElement).isTerminal()) {
             this.railway.acquireLine(d);
         }
-        
-        // Entrer physiquement dans la section
+
         super.enter(t);
     }
 
@@ -40,13 +36,17 @@ public class Section extends Element {
         Direction d = t.getPosition().getDirection();
         Element nextElement = t.getPosition().getNextElement();
 
-        // Libération de la place physique
         super.leave(t);
 
-        // On libère la ligne UNIQUEMENT si le prochain élément est une gare
-        // (= on a terminé de traverser toutes les sections)
-        if (nextElement instanceof Station) {
+        // Libérer la ligne si on entre dans une gare TERMINALE
+        if (nextElement instanceof Station && ((Station) nextElement).isTerminal()) {
             this.railway.releaseLine(d);
         }
+    }
+
+    // Helper method pour trouver l'élément précédent
+    private Element getPreviousElement(Direction d) {
+        Direction opposite = (d == Direction.LR) ? Direction.RL : Direction.LR;
+        return this.getNext(opposite);
     }
 }
