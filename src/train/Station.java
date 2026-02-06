@@ -20,6 +20,6 @@ public class Station extends Element {
 
 	@Override
 	protected boolean canEnter() {
-		return nbTrains < size; // Max 'size' trains
+		return nbTrains < size; // Max 'size' trains, Invariant station
 	}
 }

@@ -53,6 +53,8 @@ public abstract class Element {
     }
 	
 	public synchronized void enter(Train t)throws InterruptedException {
+		
+		//blocage des threads
 		while (!canEnter()) {
             wait();
         }
@@ -60,7 +62,8 @@ public abstract class Element {
     }
 
     public synchronized void leave(Train t) {
-    	nbTrains--;
+    	//réveille des threads en attente
+		nbTrains--;
           notifyAll();
     }
 
