@@ -38,12 +38,16 @@ public class Train {
 		return "Train[" + name + "] is on " + pos;
 	}
 	
+	/* la méthode move() doit faire avancer le train d'un élément dans la direction indiquée par sa position actuelle. 
+	 * Si le train arrive à une gare terminale, il doit inverser la direction et faire le déplacement dans la nouvelle direction.
+	 * Après chaque déplacement ou changement de direction, la méthode doit afficher l'état actuel du train.
+	*/ 
 	public void move() {
         Element next = pos.getNextElement();
 
         if (next == null) {
             pos.reverse();
-            System.out.println("Train" + this.name + " reversed direction");
+            System.out.println("Train " + this.name + " reversed direction");
         } else {
             
             // Move to next element

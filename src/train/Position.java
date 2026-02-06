@@ -50,6 +50,8 @@ public class Position implements Cloneable {
         return direction;
     }
 
+	/* la méthode moveToNext() déplace la position vers
+	 l'élément suivant dans la direction actuelle */
 	public void moveToNext() {
         Element next = pos.getNext(direction);
         if (next != null) {
@@ -57,6 +59,7 @@ public class Position implements Cloneable {
         }
     }
 	
+	/* la méthode reverse() inverse la direction actuelle */
 	public void reverse() {
         if (direction == Direction.LR) {
             direction = Direction.RL;
@@ -65,6 +68,8 @@ public class Position implements Cloneable {
         }
     }
 	
+	/* la méthode getNextElement() retourne l'élément suivant dans la direction actuelle,
+	 ou null s'il n'y en a pas */
 	public Element getNextElement() {
         return pos.getNext(direction);
     }

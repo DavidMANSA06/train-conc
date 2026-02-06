@@ -33,6 +33,8 @@ public abstract class Element {
 		this.railway = r;
 	}
 	
+    /* la méthode getNext() retourne l'élément suivant dans la direction donnée,
+     ou null s'il n'y en a pas */
 	public Element getNext(Direction d) {
         int currentIndex = railway.indexOf(this);
         if (d == Direction.LR) {
@@ -57,6 +59,8 @@ public abstract class Element {
         }
     }*/
 
+    /* la méthode hasTrain() retourne true si un train est présent sur cet élément,
+     false sinon */
     public boolean hasTrain() {
         return this.currentTrain != null;
     }

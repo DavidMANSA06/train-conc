@@ -21,6 +21,8 @@ public class Railway {
 			e.setRailway(this);
 	}
 	
+    /* la méthode getElement() retourne l'élément à l'index donné dans le circuit,
+     ou null si l'index est invalide */
     public Element getElement(int index) {
         if (index >= 0 && index < elements.length) {
             return elements[index];
@@ -28,6 +30,8 @@ public class Railway {
         return null;
     }
 
+    /* la méthode indexOf() retourne l'index de l'élément donné dans le circuit,
+     ou -1 si l'élément n'est pas présent */
     public int indexOf(Element e) {
         for (int i = 0; i < elements.length; i++) {
             if (elements[i] == e) {
@@ -37,6 +41,7 @@ public class Railway {
         return -1;
     }
 
+    /* la méthode size() retourne le nombre d'éléments dans le circuit */
     public int size() {
         return elements.length;
     }
